@@ -64,7 +64,7 @@
       "targets": [
         {
           "expr": "deposit_amount",
-          "legendFormat": "{{blockNumber}}",
+          "legendFormat": "Block Number",
           "refId": "D"
         }
       ],
