@@ -41,17 +41,60 @@ export class DepositsRepository implements IDepositsRepository {
   }
 
   public async getDeposits(props: GetDepositsProps): Promise<Deposit[]> {
-    const deposits = await this.depositsModel
-      .find({
-        blockchain: props.blockchain,
-        network: props.network,
-        token: props.token,
-        blockTimestamp: props.blockTimestamp
-          ? { $gte: props.blockTimestamp }
-          : undefined,
-      })
-      .exec();
 
-    return deposits;
+    console.log("Fetching deposits for this", props);
+    console.log("Querying with:", {
+      blockchain: props.blockchain,
+      network: props.network,
+      token: props.token,
+      blockTimestamp: props.blockTimestamp!==undefined
+      ? { $gte: props.blockTimestamp }
+      : undefined
+    });
+
+    console.log("Deposits model:", {$gte: props.blockTimestamp});
+    console.log("Deposits model:", props.blockTimestamp!==undefined
+      ? { $gte: props.blockTimestamp }
+      : undefined);
+    
+    // const deposits = await this.depositsModel
+    //   .find({
+    //     blockchain: props.blockchain,
+    //     network: props.network,
+    //     token: props.token,
+    //     blockTimestamp: props.blockTimestamp
+    //       ? { $gte: props.blockTimestamp }
+    //       : undefined,
+    //   })
+    //   .exec();
+    try {
+      var deposits = await this.depositsModel
+        .find({
+          blockchain: props.blockchain,
+          network: props.network,
+          token: props.token,
+          blockTimestamp: props.blockTimestamp!==undefined
+            ? { $gte: props.blockTimestamp }
+            : undefined,
+        })
+        .exec();
+      console.log("Deposits found:", deposits);
+      // if (props.blockTimestamp !== undefined) {
+      //   console.log("Filtering deposits by blockTimestamp:", props.blockTimestamp);
+
+      //   var value =  props.blockTimestamp;
+
+      //   deposits = deposits.filter(deposit => deposit.blockTimestamp >= value);
+      // }
+      // console.log("Deposits filtered:", deposits);      
+
+      return deposits;
+    } catch (error) {
+      console.error("Error fetching deposits:", error);
+      return [];
+    }
+    
+    
+    
   }
 }

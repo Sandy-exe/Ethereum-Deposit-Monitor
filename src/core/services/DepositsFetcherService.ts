@@ -17,6 +17,7 @@ export class DepositsFetcherService implements IDepositsFetcherService {
   }
 
   public async getDeposits(props: GetDepositsProps): Promise<Deposit[]> {
+    //console.log("Fetching deposits for", props);
     return await this.depositsRepository.getDeposits(props);
   }
 }

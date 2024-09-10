@@ -13,6 +13,7 @@ export interface GetDepositsProps {
   token: string;
   blockTimestamp?: number;
 }
+
 export interface DepositsFetcherService {
   getDeposits(props: GetDepositsProps): Promise<Deposit[]>;
 }

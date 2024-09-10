@@ -27,7 +27,7 @@ const getMongooseConnection = async () => {
 
 const getDepositsRepository = async () => {
   if (!depositsRepository) {
-    console.info("Creating new DepositsRepository");
+    console.info(DepositModel);
 
     await getMongooseConnection();
 
@@ -46,6 +46,8 @@ export const getDepositsFetcherService = async () => {
     depositsFetcherService = new DepositsFetcherService({
       depositsRepository: depositsRepository,
     });
+
+    console.log("DepositsFetcherService created prometheusMetricsRestApi");
 
     console.info("EthBeaconService created");
   }
