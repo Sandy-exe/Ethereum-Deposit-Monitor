@@ -1,54 +1,121 @@
-# ETH Deposit Tracker
 
-The ETH Deposit Tracker is a TypeScript-based application that monitors Ethereum deposits on the blockchain. It tracks deposit transactions, stores them in a MongoDB database, and sends notifications via Telegram when new deposits are detected.
 
-## Prerequisites
+# Ethereum (ETH) Deposit Monitor
 
-Before you start, ensure you have the following installed:
+## Overview
 
-- **Node.js**: Version 14 or later.
-- **npm**: Version 6 or later (comes with Node.js).
-- **MongoDB**: Ensure MongoDB is installed and running on the default port `27017`.
+The Ethereum Deposit Monitor is a TypeScript-based application designed to track and log ETH deposits on the Beacon Deposit Contract. It integrates with Ethereum nodes via RPC, processes deposit transactions, and provides real-time notifications and visualizations.
 
-### MongoDB Installation
+## Features
 
-If you don't have MongoDB installed, you can install it using the following steps:
+- **Real-Time Monitoring**: Tracks ETH deposits on the Beacon Deposit Contract.
+- **Detailed Logging**: Records deposit details including sender address, amount, and timestamp.
+- **Alerts**: Sends notifications via Telegram for new deposits.
+- **Visualization**: Displays deposit data and metrics on a Grafana dashboard.
+- **Error Handling**: Robust logging and error management.
+- **Dockerization**: Dockerization also performed (May face some Errors, still need work on that)
 
-- **macOS** (using Homebrew):
+## Table of Contents
 
-  ```bash
-  brew tap mongodb/brew
-  brew install mongodb-community@6.0
-  brew services start mongodb/brew/mongodb-community
-  ```
+- [Ethereum (ETH) Deposit Monitor](#ethereum-eth-deposit-monitor)
+  - [Overview](#overview)
+  - [Features](#features)
+  - [Table of Contents](#table-of-contents)
+  - [Installation](#installation)
+  - [Configuration](#configuration)
+  - [Running the Application](#running-the-application)
+  - [Usage](#usage)
+  - [Data Schema](#data-schema)
+  - [Project Deliverables](#project-deliverables)
+  - [Support and Contributions](#support-and-contributions)
 
-  ## Available Scripts
+## Installation
 
-In the project directory, you can run:
+To get started with the Ethereum Deposit Monitor, follow these steps:
 
-### `npm run build`
+1. **Clone the Repository**
+   ```bash
+   git clone [repository-url]
+   cd [project-directory]
+   ```
 
-Compiles the TypeScript code to JavaScript.
+2. **Install Node.js and TypeScript**
+   - Ensure Node.js is installed. Install TypeScript globally:
+     ```bash
+     npm install -g typescript
+     ```
 
-### `npm run dev`
+3. **Install Dependencies**
+   ```bash
+   npm install
+   ```
 
-## Architecture
+## Configuration
 
-This project was developed using Clean Architecture principles along with SOLID design principles. The Clean Architecture approach ensures separation of concerns and independence of frameworks, making the system more maintainable, scalable, and testable. The application is structured into layers:
+1. **Set Up Environment Variables**
+   - Create a `.env` file in the project root with the following content:
+     ```env
+     ALCHEMY_API_KEY=YOUR_ALCHEMY_API_KEY
+     MONGO_URI=YOUR_MONGO_URI
+     ETH_BLOCK_FROM=20714004
+     TELEGRAM_NOTIFICATIONS_BOT_TOKEN=YOUR_TELEGRAM_BOT_TOKEN
+     TELEGRAM_NOTIFICATIONS_CHAT_ID=YOUR_TELEGRAM_CHAT_ID
+     ```
 
-1. Entities: Core business logic and domain models.
-2. Use Cases: Application-specific business rules.
-3. Interface Adapters: Presenters, controllers, and gateways.
-4. Frameworks and Drivers: External frameworks and tools (database, web framework, etc.).
+## Running the Application
 
-SOLID principles were applied throughout the development:
+1. **Start the Main Application**
+   ```bash
+   npm start
+   ```
 
-- Single Responsibility Principle: Each class and module has a single, well-defined responsibility.
-- Open-Closed Principle: The system is open for extension but closed for modification.
-- Liskov Substitution Principle: Objects of a superclass are replaceable with objects of its subclasses without affecting the correctness of the program.
-- Interface Segregation Principle: Clients are not forced to depend on interfaces they do not use.
-- Dependency Inversion Principle: High-level modules do not depend on low-level modules. Both depend on abstractions.
+2. **Run Monitoring and Alerting Servers**
+   ```bash
+   npm run dev-api
+   npm run dev
+   ```
 
-## Flexibility
+   This command will start the Prometheus and Grafana servers.
 
-The ETH Deposit Tracker was designed with flexibility in mind. It can be easily configured to listen for any token from any blockchain by simply configuring a context for each one. This modular approach allows for easy expansion to support multiple cryptocurrencies and blockchains without significant changes to the core architecture.
+3. **Access Grafana Dashboard**
+   - Visit `http://localhost:3000` to view real-time deposit data.
+
+## Usage
+
+1. **Monitor Deposits**
+   - The application will automatically start tracking deposits from the Beacon Deposit Contract.
+   - Deposit information will be logged and visible on the Grafana dashboard.
+
+2. **Receive Alerts**
+   - Notifications about new deposits will be sent to the configured Telegram chat.
+
+## Data Schema
+
+The deposit data is structured as follows:
+
+```typescript
+Deposit {
+    blockNumber: number;
+    timestamp: number;
+    fee?: number;
+    transactionHash?: string;
+    publicKey: string;
+}
+```
+
+## Project Deliverables
+
+- TypeScript-based Ethereum deposit monitoring application.
+- Complete source code repository with detailed documentation.
+- README file with setup and usage instructions.
+- Integrated error handling and logging.
+- Grafana dashboard for data visualization.
+- Telegram notifications for deposit alerts.
+
+## Support and Contributions
+
+For support or to contribute to the project:
+
+- **Issues**: Report any issues on the [GitHub Issues page](#).
+- **Contributions**: Submit pull requests or suggestions via [GitHub](#).
+

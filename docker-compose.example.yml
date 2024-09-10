@@ -48,7 +48,7 @@ services:
       - prometheus
     environment:
       - ALCHEMY_API_KEY=UUThfPb_i7XZKl9sT1LT54JqLckJi6Xg
-      - MONGO_URI=mongodb+srv://Denji:Santhosh1@@cluster0.agbc7.mongodb.net/
+      - MONGO_URI=mongodb+srv://Denji:Santhosh@cluster0.agbc7.mongodb.net/deposits?retryWrites=true&w=majority
       - TELEGRAM_NOTIFICATIONS_BOT_TOKEN= 7201285842:AAE9r2oyYhJpIJ4d8jBYspKYsWUvjmfCJ8k
       - TELEGRAM_NOTIFICATIONS_CHAT_ID= -4548170232
 
